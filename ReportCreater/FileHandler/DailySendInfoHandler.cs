@@ -11,6 +11,7 @@ namespace ReportCreater.FileHandler
         public DailySendInfoHandler(string filePath,DateTime date)
         {
             
+
         }
     }
 }
