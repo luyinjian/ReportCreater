@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Packaging;
+
+namespace ReportCreater.Entitys
+{
+    public class CompDebitEntity
+    {
+        public string code { get; set; }
+        public string bondName { get; set; }
+        public decimal planAmt { get; set; }
+        public decimal pubAmt { get; set; }
+        public decimal amt { get; set; }
+        public static CompDebitEntity getFromCell(Row row, SharedStringTablePart t)
+        {
+            if (row != null)
+            {
+                CompDebitEntity entity = new CompDebitEntity();
+                List<Cell> cells = row.Descendants<Cell>().ToList();
+                if(cells[0] == null)
+                {
+                    return null;
+                }
+                entity.code = LYJUtil.GetValue(LYJUtil.GetCell("A", row.RowIndex, cells), t);
+                if(string.IsNullOrWhiteSpace(entity.code))
+                {
+                    return null;
+                }
+
+                Cell cellB = LYJUtil.GetCell("B", row.RowIndex, cells);
+                if(cellB !=null)
+                {
+                    entity.bondName = LYJUtil.GetValue(cellB, t);
+                }
+                else
+                {
+                    return null;
+                }
+                
+
+                string planAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("F", row.RowIndex, cells), t);
+                string pubAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("H", row.RowIndex, cells), t);
+                entity.planAmt = decimal.Parse(planAmtStr, System.Globalization.NumberStyles.Float);
+                if (string.IsNullOrWhiteSpace(pubAmtStr))
+                {
+                    entity.pubAmt = 0;
+                    entity.amt = entity.planAmt;
+                }
+                else
+                {
+                    entity.pubAmt = decimal.Parse(pubAmtStr, System.Globalization.NumberStyles.Float);
+                    entity.amt = entity.pubAmt;
+                }
+                return entity;
+
+            }
+            else
+            {
+                throw new MyException("存在空行");
+            }
+        }
+    }
+}

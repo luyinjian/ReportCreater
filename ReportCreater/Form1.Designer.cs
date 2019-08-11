@@ -41,7 +41,7 @@
             // 
             // btnOpenFolder
             // 
-            this.btnOpenFolder.Location = new System.Drawing.Point(12, 12);
+            this.btnOpenFolder.Location = new System.Drawing.Point(10, 80);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(98, 23);
             this.btnOpenFolder.TabIndex = 0;
@@ -52,7 +52,7 @@
             // labFilePath
             // 
             this.labFilePath.AutoSize = true;
-            this.labFilePath.Location = new System.Drawing.Point(116, 17);
+            this.labFilePath.Location = new System.Drawing.Point(114, 85);
             this.labFilePath.Name = "labFilePath";
             this.labFilePath.Size = new System.Drawing.Size(0, 12);
             this.labFilePath.TabIndex = 1;
@@ -69,7 +69,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 47);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 3;
@@ -77,7 +77,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(95, 41);
+            this.dateTimePicker1.Location = new System.Drawing.Point(95, 3);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 21);
             this.dateTimePicker1.TabIndex = 4;
@@ -85,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 75);
+            this.label2.Location = new System.Drawing.Point(12, 37);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 5;
@@ -112,7 +112,7 @@
             // 
             // txtQishu
             // 
-            this.txtQishu.Location = new System.Drawing.Point(95, 72);
+            this.txtQishu.Location = new System.Drawing.Point(95, 34);
             this.txtQishu.Name = "txtQishu";
             this.txtQishu.Size = new System.Drawing.Size(100, 21);
             this.txtQishu.TabIndex = 9;

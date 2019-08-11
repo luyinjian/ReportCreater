@@ -41,7 +41,7 @@ namespace ReportCreater
             {
                 return decimal.Round(decimal.Divide(input, 10000), 2) + "万";
             }
-            return input.ToString();
+            return decimal.Round(input,0).ToString();
         }
 
         public static string getupdown(decimal input)
