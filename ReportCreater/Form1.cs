@@ -145,6 +145,7 @@ namespace ReportCreater
                     result += string.Format("{0}占{1}%，",
                         pingzhong.Key, pingzhong.Value);
                 }
+                result = result.Remove(result.Length - 1, 1) + "。";
 
                 result += string.Format("行业分布方面，涵盖{0}等。",
                     payDetailFile.getHangYeFenBu());

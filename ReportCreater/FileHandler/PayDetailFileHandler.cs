@@ -184,8 +184,9 @@ namespace ReportCreater.FileHandler
                                         .Select(p => new
                                         {
                                             hangye_1st = p.Key,
-                                            Count = p.Count()
-                                        }).OrderByDescending(q=>q.Count);
+                                            Count = p.Count(),
+                                            amount = p.Sum(m=>m.pubAmount)
+                                        }).OrderByDescending(q=>q.Count).ThenByDescending(f=>f.amount);
 
             StringBuilder sb = new StringBuilder();
             foreach(var s in tmpList)
@@ -211,6 +212,7 @@ namespace ReportCreater.FileHandler
                     amount = decimal.Add(amount, t.pubAmount);
                 }
             }
+            amount = decimal.Round(amount, 2);
         }
 
         public void getMingyingToday(out int count,out decimal amount)
@@ -229,6 +231,8 @@ namespace ReportCreater.FileHandler
                     amount = decimal.Add(amount, t.pubAmount);
                 }
             }
+
+            amount = decimal.Round(amount, 2);
         }
     }
 }
