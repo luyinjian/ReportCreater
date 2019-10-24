@@ -15,6 +15,8 @@ namespace ReportCreater.Entitys
         public string bondName { get; set; }
         public DateTime payDate { get; set; }
         public decimal pubAmount { get; set; }
+        public string hangye_1st { get; set; }
+        public string ownnerType { get; set; }
 
         public static RZGJPayDtlEntity getFromCell(Row row,SharedStringTablePart t)
         {
@@ -43,6 +45,29 @@ namespace ReportCreater.Entitys
                     //    }
                     string dateValue = LYJUtil.GetValue(LYJUtil.GetCell("N", row.RowIndex, cells), t);
                     entity.payDate = DateTime.FromOADate(double.Parse(dateValue));
+
+                    curCol = "O";
+                    var tmpC = LYJUtil.GetCell(curCol, row.RowIndex, cells);
+                    if(tmpC == null)
+                    {
+                        entity.hangye_1st = "空";
+                    }
+                    else
+                    {
+                        entity.hangye_1st = LYJUtil.GetValue(tmpC, t);
+                    }
+
+                    curCol = "Q";
+                    var tmpQ = LYJUtil.GetCell(curCol, row.RowIndex, cells);
+                    if (tmpQ == null)
+                    {
+                        entity.ownnerType = "空";
+                    }
+                    else
+                    {
+                        entity.ownnerType = LYJUtil.GetValue(tmpQ, t);
+                    }
+
                     return entity;
                 }
                 else

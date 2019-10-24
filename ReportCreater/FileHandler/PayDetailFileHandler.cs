@@ -174,5 +174,61 @@ namespace ReportCreater.FileHandler
                 throw new MyException("未加载文件");
             }
         }
+
+        public string getHangYeFenBu()
+        {
+            var tmpList = dataList.Where(n => n.payDate.Year == dateNow.Year
+                                        && n.payDate.Month == dateNow.Month
+                                        && n.payDate.Day == dateNow.Day)
+                                        .GroupBy(m => m.hangye_1st)
+                                        .Select(p => new
+                                        {
+                                            hangye_1st = p.Key,
+                                            Count = p.Count()
+                                        }).OrderByDescending(q=>q.Count);
+
+            StringBuilder sb = new StringBuilder();
+            foreach(var s in tmpList)
+            {
+                sb.Append(s.hangye_1st + "、");
+            }
+            sb.Remove(sb.Length - 1, 1);
+            return sb.ToString();
+        }
+        public void getChengjianToday(out int count,out decimal amount)
+        {
+            count = 0;
+            amount = 0;
+            var todayList = dataList.Where(n => n.payDate.Year == dateNow.Year
+                                        && n.payDate.Month == dateNow.Month
+                                        && n.payDate.Day == dateNow.Day);
+
+            foreach(var t in todayList)
+            {
+                if(t.hangye_1st.Contains("城市基础"))
+                {
+                    count++;
+                    amount = decimal.Add(amount, t.pubAmount);
+                }
+            }
+        }
+
+        public void getMingyingToday(out int count,out decimal amount)
+        {
+            count = 0;
+            amount = 0;
+            var todayList = dataList.Where(n => n.payDate.Year == dateNow.Year
+                                        && n.payDate.Month == dateNow.Month
+                                        && n.payDate.Day == dateNow.Day);
+
+            foreach (var t in todayList)
+            {
+                if(t.ownnerType.Contains("民营"))
+                {
+                    count++;
+                    amount = decimal.Add(amount, t.pubAmount);
+                }
+            }
+        }
     }
 }

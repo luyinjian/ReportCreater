@@ -14,7 +14,7 @@ namespace ReportCreater.FileHandler
     {
         public string fileName { get; set; }
 
-        List<SendSuccessEntity> dataList { get; set; }
+        public List<SendSuccessEntity> dataList { get; set; }
         public DailySendInfoHandler(string filePath,DateTime date)
         {
             string tmp = System.Configuration.ConfigurationManager.AppSettings["dailySendFileName"];
@@ -81,6 +81,50 @@ namespace ReportCreater.FileHandler
                 sum = decimal.Add(sum, data.pubAmout);
             }
             return sum;
+        }
+
+        public List<KeyValuePair<string,decimal>> getPingZhongFenBu()
+        {
+            var tmp = dataList.GroupBy(n => n.bondType)
+                                .Select(p => new
+                                {
+                                    bondType = p.Key,
+                                    amount = p.Sum(n=>n.pubAmout)   
+                                });
+            decimal totalAmt = dataList.Sum(n => n.pubAmout);
+            List<KeyValuePair<string, decimal>> result = new List<KeyValuePair<string, decimal>>();
+            foreach (var t in tmp)
+            {
+                decimal percent = 0;
+                if (totalAmt != 0)
+                {
+                    percent = decimal.Divide(t.amount, totalAmt);
+                    percent = decimal.Round(decimal.Multiply(percent, 100), 0);
+                }
+                var item = new KeyValuePair<string, decimal>(t.bondType, percent);
+                result.Add(item);
+            }
+            result = result.OrderByDescending(n => n.Value).ToList();
+            return result;
+        }
+
+        public decimal getPingJiPercent()
+        {
+            var aaList = dataList.Where(n => n.bondLevel == "AA+" || n.bondLevel == "AAA").ToList();
+
+            decimal aaSum = 0;
+            decimal totalSum = getTotal();
+            decimal result = 0;
+            foreach(var aa in aaList)
+            {
+                aaSum = decimal.Add(aaSum, aa.pubAmout);
+            }
+            if(totalSum != 0)
+            {
+                result = decimal.Divide(aaSum, totalSum);
+            }
+            result = decimal.Round(decimal.Multiply(result, 100), 0);
+            return result;
         }
     }
 }

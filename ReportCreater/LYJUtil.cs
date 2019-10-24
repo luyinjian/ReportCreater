@@ -44,6 +44,19 @@ namespace ReportCreater
             return decimal.Round(input,0).ToString();
         }
 
+        public static DateTime GetDateTime(string value)
+        {
+            double d = 0;
+            if(double.TryParse(value,out d))
+            {
+                return DateTime.FromOADate(d);
+            }
+            else
+            {
+                return DateTime.Parse(value);
+            }
+        }
+
         public static string getupdown(decimal input)
         {
             if(input < 0)

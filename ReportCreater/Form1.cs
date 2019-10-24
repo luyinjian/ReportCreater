@@ -24,6 +24,7 @@ namespace ReportCreater
         PayDetailFileHandler payDetailFile;
         CompDebitHandler compDebitHandler;
         DailySendInfoHandler dailySendInfoHandler;
+        PublishAndCancelFileHandler publishAndCancelFileHandler;
         private void BtnOpenFolder_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -44,6 +45,8 @@ namespace ReportCreater
                     log("文件选择：" + compDebitHandler.lastYearFileName);
                     dailySendInfoHandler = new DailySendInfoHandler(fbd.SelectedPath, dateTimePicker1.Value);
                     log("文件选择：" + dailySendInfoHandler.fileName);
+                    publishAndCancelFileHandler = new PublishAndCancelFileHandler(fbd.SelectedPath, dateTimePicker1.Value);
+                    log("文件选择：" + publishAndCancelFileHandler.fileName);
                     btnCalc.Enabled = true;
                 }
                 catch(Exception ex)
@@ -86,6 +89,7 @@ namespace ReportCreater
                 decimal lastyearmonth = payDetailFile.getLastYearMonthPaySum();
                 decimal year = payDetailFile.getYearPaySum();
                 decimal lastyear = payDetailFile.getLastYearPaySum();
+                lastyear = lastyear + 130;
                 int avgcount;
                 decimal avgamt;
                 
@@ -114,7 +118,51 @@ namespace ReportCreater
                     LYJUtil.changewan(lastYearCompDebit),
                     LYJUtil.getupdown(decimal.Round(decimal.Divide(thisYearCompDebit, lastYearCompDebit) * 100 - 100, 0))
                     );
+                //簿记建档情况
+                publishAndCancelFileHandler.loadData();
 
+                int todayPubCount = 0;
+                decimal todayPubAmt = 0;
+                int hisDoingCount = 0;
+                decimal hisDoingAmt = 0;
+                publishAndCancelFileHandler.getTodayData(out todayPubCount, out todayPubAmt);
+                publishAndCancelFileHandler.getHisDoing(out hisDoingCount, out hisDoingAmt);
+
+                result += string.Format("\r\n一、整体发行情况\r\n簿记建档情况，{4}挂网{0}只，金额{1}亿元；正在簿记{2}只，金额{3}亿元。",
+                    todayPubCount, decimal.Round(todayPubAmt,0),
+                    hisDoingCount, decimal.Round(hisDoingAmt,0),
+                    selecteddate.DayOfWeek);
+
+                result += string.Format("\r\n缴款规模方面，{2}债务融资工具缴款{0}只，金额{1}亿元。",
+                    dailySendInfoHandler.dataList.Count,
+                    decimal.Round(dailyTotalSum,0),
+                    selecteddate.DayOfWeek);
+
+                result += "\r\n品种分布方面，";
+                var pingzhongList = dailySendInfoHandler.getPingZhongFenBu();
+                foreach(var pingzhong in pingzhongList)
+                {
+                    result += string.Format("{0}占{1}%，",
+                        pingzhong.Key, pingzhong.Value);
+                }
+
+                result += string.Format("行业分布方面，涵盖{0}等。",
+                    payDetailFile.getHangYeFenBu());
+
+                result += string.Format("评级方面，超过{0}%为中高评级。",
+                    dailySendInfoHandler.getPingJiPercent());
+
+                int chengJianCount = 0;
+                decimal chengJianAmt = 0;
+                payDetailFile.getChengjianToday(out chengJianCount, out chengJianAmt);
+                result += string.Format("城建类企业发行{0}只，金额共计{1}亿元。",
+                    chengJianCount,chengJianAmt);
+
+                int minYingCount = 0;
+                decimal minYingAmt = 0;
+                payDetailFile.getMingyingToday(out minYingCount, out minYingAmt);
+                result += string.Format("民营企业发行{0}只，金额共计{1}亿元。",
+                    minYingCount, minYingAmt);
 
                 textBox1.Text = result;
             }

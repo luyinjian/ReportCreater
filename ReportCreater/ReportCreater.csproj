@@ -54,10 +54,12 @@
     <Compile Include="Entitys\CompDebitEntity.cs" />
     <Compile Include="Entitys\RZGJPayDtlEntity.cs" />
     <Compile Include="Entitys\SendSuccessEntity.cs" />
+    <Compile Include="Entitys\PublishAndCancelFileEntity.cs" />
     <Compile Include="FileHandler\CompDebitHandler.cs" />
     <Compile Include="FileHandler\DailySendInfoHandler.cs" />
     <Compile Include="FileHandler\MyEventArgs.cs" />
     <Compile Include="FileHandler\PayDetailFileHandler.cs" />
+    <Compile Include="FileHandler\PublishAndCancelFileHandler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
