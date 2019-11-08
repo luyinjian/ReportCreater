@@ -32,8 +32,14 @@ namespace ReportCreater.Entitys
                 {
                     PublishAndCancelFileEntity entity = new PublishAndCancelFileEntity();
                     List<Cell> cells = row.Descendants<Cell>().ToList();
+                   
                     curCol = "A";
-                    entity.seqNo = LYJUtil.GetValue(LYJUtil.GetCell(curCol, row.RowIndex, cells), t);
+                    Cell c = LYJUtil.GetCell(curCol, row.RowIndex, cells);
+                    if(c==null)
+                    {
+                        return null;
+                    }
+                    entity.seqNo = LYJUtil.GetValue(c, t);
 
                     curCol = "B";
                     dateValue = LYJUtil.GetValue(LYJUtil.GetCell(curCol, row.RowIndex, cells), t);

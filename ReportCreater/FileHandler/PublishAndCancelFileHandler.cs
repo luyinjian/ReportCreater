@@ -134,7 +134,12 @@ namespace ReportCreater.FileHandler
             }
             for (int i = 1; i < rows.Count; i++)
             {
-                entity.Add(PublishAndCancelFileEntity.getFromRow(rows[i], workbook.SharedStringTablePart));
+                var rowdat = PublishAndCancelFileEntity.getFromRow(rows[i], workbook.SharedStringTablePart);
+                if(rowdat != null)
+                {
+                    entity.Add(rowdat);
+                }
+                
             }
             return entity;
         }
