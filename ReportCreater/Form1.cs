@@ -21,7 +21,7 @@ namespace ReportCreater
         }
 
         //string fileName;
-        PayDetailFileHandler payDetailFile;
+        PayDetailHandler payDetailFile;
         CompDebitHandler compDebitHandler;
         DailySendInfoHandler dailySendInfoHandler;
         PublishAndCancelFileHandler publishAndCancelFileHandler;
@@ -38,7 +38,20 @@ namespace ReportCreater
                 Properties.Settings1.Default.Save();
                 try
                 {
-                    payDetailFile = new PayDetailFileHandler(fbd.SelectedPath);
+                    if(radioButton2.Checked)
+                    {
+                        payDetailFile = new PayDetail总表数值Handler(fbd.SelectedPath);
+                    }
+                    else if(radioButton1.Checked)
+                    {
+                        payDetailFile = new PayDetailFileHandler(fbd.SelectedPath);
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("请选择取哪个版本");
+                        return;
+                    }
                     log("文件选择：" + payDetailFile.fileName);
                     compDebitHandler = new CompDebitHandler(fbd.SelectedPath);
                     log("文件选择：" + compDebitHandler.thisYearFileName);

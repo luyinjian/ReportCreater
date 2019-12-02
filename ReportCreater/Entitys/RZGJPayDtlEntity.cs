@@ -81,5 +81,70 @@ namespace ReportCreater.Entitys
                 throw new MyException(msg + ex.Message + ex.StackTrace);
             }
         }
+
+        public static RZGJPayDtlEntity getFrom总表数值Cell(Row row, SharedStringTablePart t)
+        {
+            string curCol = "";
+            try
+            {
+                if (row != null)
+                {
+                    RZGJPayDtlEntity entity = new RZGJPayDtlEntity();
+                    List<Cell> cells = row.Descendants<Cell>().ToList();
+                    curCol = "A";
+                    entity.seqNo = LYJUtil.GetValue(LYJUtil.GetCell("A", row.RowIndex, cells), t);
+                    curCol = "C";
+                    entity.pubCompName = LYJUtil.GetValue(LYJUtil.GetCell("C", row.RowIndex, cells), t);
+                    curCol = "B";
+                    entity.bondName = LYJUtil.GetValue(LYJUtil.GetCell("B", row.RowIndex, cells), t);
+                    curCol = "K";
+                    string amtValue = LYJUtil.GetValue(LYJUtil.GetCell("K", row.RowIndex, cells), t);
+                    // if(amtValue.Contains("E"))
+                    //  {
+                    entity.pubAmount = decimal.Parse(amtValue, System.Globalization.NumberStyles.Float);
+                    //  }
+                    //   else
+                    //    {
+                    //        entity.pubAmount = decimal.Parse(amtValue);
+                    //    }
+                    curCol = "M";
+                    string dateValue = LYJUtil.GetValue(LYJUtil.GetCell("M", row.RowIndex, cells), t);
+                    entity.payDate = DateTime.FromOADate(double.Parse(dateValue));
+
+                    curCol = "N";
+                    var tmpC = LYJUtil.GetCell(curCol, row.RowIndex, cells);
+                    if (tmpC == null)
+                    {
+                        entity.hangye_1st = "空";
+                    }
+                    else
+                    {
+                        entity.hangye_1st = LYJUtil.GetValue(tmpC, t);
+                    }
+
+                    curCol = "P";
+                    var tmpQ = LYJUtil.GetCell(curCol, row.RowIndex, cells);
+                    if (tmpQ == null)
+                    {
+                        entity.ownnerType = "空";
+                    }
+                    else
+                    {
+                        entity.ownnerType = LYJUtil.GetValue(tmpQ, t);
+                    }
+
+                    return entity;
+                }
+                else
+                {
+                    throw new MyException("存在空行");
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = "02.总表数值版第" + row.RowIndex + "行" + curCol + "列存在问题";
+                throw new MyException(msg + ex.Message + ex.StackTrace);
+            }
+        }
     }
 }
