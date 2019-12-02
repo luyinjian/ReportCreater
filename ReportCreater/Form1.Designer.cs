@@ -43,7 +43,7 @@
             // 
             // btnOpenFolder
             // 
-            this.btnOpenFolder.Location = new System.Drawing.Point(10, 80);
+            this.btnOpenFolder.Location = new System.Drawing.Point(10, 128);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(98, 23);
             this.btnOpenFolder.TabIndex = 0;
@@ -54,18 +54,18 @@
             // labFilePath
             // 
             this.labFilePath.AutoSize = true;
-            this.labFilePath.Location = new System.Drawing.Point(114, 85);
+            this.labFilePath.Location = new System.Drawing.Point(114, 133);
             this.labFilePath.Name = "labFilePath";
             this.labFilePath.Size = new System.Drawing.Size(0, 12);
             this.labFilePath.TabIndex = 1;
             // 
             // txtLog
             // 
-            this.txtLog.Location = new System.Drawing.Point(10, 308);
+            this.txtLog.Location = new System.Drawing.Point(10, 355);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(476, 130);
+            this.txtLog.Size = new System.Drawing.Size(476, 83);
             this.txtLog.TabIndex = 2;
             // 
             // label1
@@ -95,7 +95,7 @@
             // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(10, 109);
+            this.btnCalc.Location = new System.Drawing.Point(10, 157);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(75, 23);
             this.btnCalc.TabIndex = 7;
@@ -105,7 +105,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(10, 138);
+            this.textBox1.Location = new System.Drawing.Point(10, 185);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -122,7 +122,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(146, 85);
+            this.radioButton1.Location = new System.Drawing.Point(14, 77);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(107, 16);
             this.radioButton1.TabIndex = 10;
@@ -133,7 +133,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Checked = true;
-            this.radioButton2.Location = new System.Drawing.Point(146, 107);
+            this.radioButton2.Location = new System.Drawing.Point(14, 99);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(95, 16);
             this.radioButton2.TabIndex = 11;
