@@ -112,13 +112,13 @@ namespace ReportCreater
                     "从年度情况看，债务融资工具合计发行{3}亿元，较去年同期({4}亿元){5}%；" +
                     "2019年日均缴款{6}只，日均缴款规模{7}亿元。",
                     selecteddate.Month,
-                    decimal.Round(curmonth, 0),
-                    LYJUtil.getupdown(decimal.Round(decimal.Divide(curmonth, lastyearmonth == 0 ? curmonth : lastyearmonth) * 100 - 100, 0)),
-                    LYJUtil.changewan(decimal.Round(year, 2)),
-                    LYJUtil.changewan(decimal.Round(lastyear, 2)),
-                    LYJUtil.getupdown(decimal.Round(decimal.Divide(year, lastyear == 0 ? year : lastyear) * 100 - 100, 0)),
+                    decimal.Round(curmonth, 0,MidpointRounding.AwayFromZero),
+                    LYJUtil.getupdown(decimal.Round(decimal.Divide(curmonth, lastyearmonth == 0 ? curmonth : lastyearmonth) * 100 - 100, 0, MidpointRounding.AwayFromZero)),
+                    LYJUtil.changewan(decimal.Round(year, 2, MidpointRounding.AwayFromZero)),
+                    LYJUtil.changewan(decimal.Round(lastyear, 2, MidpointRounding.AwayFromZero)),
+                    LYJUtil.getupdown(decimal.Round(decimal.Divide(year, lastyear == 0 ? year : lastyear) * 100 - 100, 0, MidpointRounding.AwayFromZero)),
                     avgcount,
-                    decimal.Round(avgamt, 0)
+                    decimal.Round(avgamt, 0, MidpointRounding.AwayFromZero)
                     );
                 //公司债
                 compDebitHandler.loadData();
@@ -129,7 +129,7 @@ namespace ReportCreater
                     "较去年同期({1}亿元){2}%。",
                     LYJUtil.changewan(thisYearCompDebit),
                     LYJUtil.changewan(lastYearCompDebit),
-                    LYJUtil.getupdown(decimal.Round(decimal.Divide(thisYearCompDebit, lastYearCompDebit) * 100 - 100, 0))
+                    LYJUtil.getupdown(decimal.Round(decimal.Divide(thisYearCompDebit, lastYearCompDebit) * 100 - 100, 0, MidpointRounding.AwayFromZero))
                     );
                 //簿记建档情况
                 publishAndCancelFileHandler.loadData();
@@ -142,13 +142,13 @@ namespace ReportCreater
                 publishAndCancelFileHandler.getHisDoing(out hisDoingCount, out hisDoingAmt);
 
                 result += string.Format("\r\n一、整体发行情况\r\n簿记建档情况，{4}挂网{0}只，金额{1}亿元；正在簿记{2}只，金额{3}亿元。",
-                    todayPubCount, decimal.Round(todayPubAmt,0),
-                    hisDoingCount, decimal.Round(hisDoingAmt,0),
+                    todayPubCount, decimal.Round(todayPubAmt,0,MidpointRounding.AwayFromZero),
+                    hisDoingCount, decimal.Round(hisDoingAmt,0, MidpointRounding.AwayFromZero),
                     selecteddate.DayOfWeek);
 
                 result += string.Format("\r\n缴款规模方面，{2}债务融资工具缴款{0}只，金额{1}亿元。",
                     dailySendInfoHandler.dataList.Count,
-                    decimal.Round(dailyTotalSum,0),
+                    decimal.Round(dailyTotalSum,0, MidpointRounding.AwayFromZero),
                     selecteddate.DayOfWeek);
 
                 result += "\r\n品种分布方面，";

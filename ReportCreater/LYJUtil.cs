@@ -39,9 +39,9 @@ namespace ReportCreater
         {
             if(input>9999)
             {
-                return decimal.Round(decimal.Divide(input, 10000), 2) + "万";
+                return decimal.Round(decimal.Divide(input, 10000), 2, MidpointRounding.AwayFromZero) + "万";
             }
-            return decimal.Round(input,0).ToString();
+            return decimal.Round(input,0, MidpointRounding.AwayFromZero).ToString();
         }
 
         public static DateTime GetDateTime(string value)

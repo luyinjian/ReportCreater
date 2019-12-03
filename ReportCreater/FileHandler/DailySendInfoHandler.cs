@@ -99,7 +99,7 @@ namespace ReportCreater.FileHandler
                 if (totalAmt != 0)
                 {
                     percent = decimal.Divide(t.amount, totalAmt);
-                    percent = decimal.Round(decimal.Multiply(percent, 100), 0);
+                    percent = decimal.Round(decimal.Multiply(percent, 100), 0, MidpointRounding.AwayFromZero);
                 }
                 var item = new KeyValuePair<string, decimal>(t.bondType, percent);
                 result.Add(item);
@@ -123,7 +123,7 @@ namespace ReportCreater.FileHandler
             {
                 result = decimal.Divide(aaSum, totalSum);
             }
-            result = decimal.Round(decimal.Multiply(result, 100), 0);
+            result = decimal.Round(decimal.Multiply(result, 100), 0, MidpointRounding.AwayFromZero);
             return result;
         }
     }

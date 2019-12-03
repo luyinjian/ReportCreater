@@ -107,8 +107,8 @@ namespace ReportCreater.FileHandler
                 {
                     sum += entity.pubAmount;
                 }
-                avgCount = Convert.ToInt32((decimal.Round(decimal.Divide(decimal.Parse(curMonthData.Count.ToString()), decimal.Parse(qishu.ToString())), 2)));
-                avgAmt = decimal.Round(decimal.Divide(sum, qishu), 0);
+                avgCount = Convert.ToInt32((decimal.Round(decimal.Divide(decimal.Parse(curMonthData.Count.ToString()), decimal.Parse(qishu.ToString())), 2, MidpointRounding.AwayFromZero)));
+                avgAmt = decimal.Round(decimal.Divide(sum, qishu), 0, MidpointRounding.AwayFromZero);
             }
             else
             {
@@ -153,7 +153,7 @@ namespace ReportCreater.FileHandler
                     amount = decimal.Add(amount, t.pubAmount);
                 }
             }
-            amount = decimal.Round(amount, 2);
+            amount = decimal.Round(amount, 2, MidpointRounding.AwayFromZero);
         }
 
         public void getMingyingToday(out int count, out decimal amount)
@@ -173,7 +173,7 @@ namespace ReportCreater.FileHandler
                 }
             }
 
-            amount = decimal.Round(amount, 2);
+            amount = decimal.Round(amount, 2, MidpointRounding.AwayFromZero);
         }
     }
 }
