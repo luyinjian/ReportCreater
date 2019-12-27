@@ -102,7 +102,10 @@ namespace ReportCreater
                 decimal lastyearmonth = payDetailFile.getLastYearMonthPaySum();
                 decimal year = payDetailFile.getYearPaySum();
                 decimal lastyear = payDetailFile.getLastYearPaySum();
-                lastyear = lastyear + 130;
+                if(radioButton1.Checked)
+                {
+                    lastyear = lastyear + 130;
+                }
                 int avgcount;
                 decimal avgamt;
                 
