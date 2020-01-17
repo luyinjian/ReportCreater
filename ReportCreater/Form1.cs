@@ -113,7 +113,7 @@ namespace ReportCreater
 
                 result += string.Format("截至当日，{0}月债务融资工具合计缴款{1}亿元，发行金额同比{2}%。\r\n" +
                     "从年度情况看，债务融资工具合计发行{3}亿元，较去年同期({4}亿元){5}%；" +
-                    "2019年日均缴款{6}只，日均缴款规模{7}亿元。",
+                    "2020年日均缴款{6}只，日均缴款规模{7}亿元。",
                     selecteddate.Month,
                     decimal.Round(curmonth, 0,MidpointRounding.AwayFromZero),
                     LYJUtil.getupdown(decimal.Round(decimal.Divide(curmonth, lastyearmonth == 0 ? curmonth : lastyearmonth) * 100 - 100, 0, MidpointRounding.AwayFromZero)),
