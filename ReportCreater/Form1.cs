@@ -53,7 +53,7 @@ namespace ReportCreater
                         return;
                     }
                     log("文件选择：" + payDetailFile.fileName);
-                    compDebitHandler = new CompDebitHandler(fbd.SelectedPath);
+                    compDebitHandler = new CompDebitHandler(fbd.SelectedPath, dateTimePicker1.Value);
                     log("文件选择：" + compDebitHandler.thisYearFileName);
                     log("文件选择：" + compDebitHandler.lastYearFileName);
                     dailySendInfoHandler = new DailySendInfoHandler(fbd.SelectedPath, dateTimePicker1.Value);
@@ -111,9 +111,9 @@ namespace ReportCreater
                 
                 payDetailFile.getThisYearDayAvg(out avgcount, out avgamt);
 
-                result += string.Format("截至当日，{0}月债务融资工具合计缴款{1}亿元，发行金额同比{2}%。\r\n" +
+                result += string.Format("截至当日，{0}月债务融资工具合计缴款{1}亿元，发行金额同比{2}%。" +
                     "从年度情况看，债务融资工具合计发行{3}亿元，较去年同期({4}亿元){5}%；" +
-                    "2020年日均缴款{6}只，日均缴款规模{7}亿元。",
+                    "2020年日均缴款{6}只，日均缴款规模{7}亿元。\r\n",
                     selecteddate.Month,
                     decimal.Round(curmonth, 0,MidpointRounding.AwayFromZero),
                     LYJUtil.getupdown(decimal.Round(decimal.Divide(curmonth, lastyearmonth == 0 ? curmonth : lastyearmonth) * 100 - 100, 0, MidpointRounding.AwayFromZero)),
@@ -128,12 +128,32 @@ namespace ReportCreater
                 log(compDebitHandler.thisYearFileName + compDebitHandler.lastYearFileName + "数据加载完成");
                 decimal thisYearCompDebit = compDebitHandler.getThisYearSum();
                 decimal lastYearCompDebit = compDebitHandler.getLastYearSum();
-                result += string.Format("公司债(含ABS)本年累计发行{0}亿元，" +
-                    "较去年同期({1}亿元){2}%。",
+                int todayCompDebitCount = compDebitHandler.getTodayCount();
+                decimal todayCompDebitSum = compDebitHandler.getTodaySum();
+                result += string.Format("{0}公司债(含ABS)起息{1}只，起息规模{2}亿元。" +
+                    "本年累计起息{3}亿元，较去年同期({4}亿元){5}%。\r\n",
+                    selecteddate.DayOfWeek,
+                    todayCompDebitCount,
+                    LYJUtil.changewan(todayCompDebitSum),
                     LYJUtil.changewan(thisYearCompDebit),
                     LYJUtil.changewan(lastYearCompDebit),
                     LYJUtil.getupdown(decimal.Round(decimal.Divide(thisYearCompDebit, lastYearCompDebit) * 100 - 100, 0, MidpointRounding.AwayFromZero))
                     );
+                //企业债
+                decimal thisYearCompDebitQ = compDebitHandler.getThisYearSumQ();
+                decimal lastYearCompDebitQ = compDebitHandler.getLastYearSumQ();
+                int todayCompDebitCountQ = compDebitHandler.getTodayCountQ();
+                decimal todayCompDebitSumQ = compDebitHandler.getTodaySumQ();
+                result += string.Format("{0}企业债缴款{1}只，缴款规模{2}亿元。" +
+                    "本年累计缴款{3}亿元，较去年同期({4}亿元){5}%。",
+                    selecteddate.DayOfWeek,
+                    todayCompDebitCountQ,
+                    LYJUtil.changewan(todayCompDebitSumQ),
+                    LYJUtil.changewan(thisYearCompDebitQ),
+                    LYJUtil.changewan(lastYearCompDebitQ),
+                    LYJUtil.getupdown(decimal.Round(decimal.Divide(thisYearCompDebitQ, lastYearCompDebitQ) * 100 - 100, 0, MidpointRounding.AwayFromZero))
+                    );
+
                 //簿记建档情况
                 publishAndCancelFileHandler.loadData();
 

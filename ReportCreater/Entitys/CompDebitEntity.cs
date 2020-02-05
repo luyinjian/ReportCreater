@@ -15,7 +15,8 @@ namespace ReportCreater.Entitys
         public decimal planAmt { get; set; }
         public decimal pubAmt { get; set; }
         public decimal amt { get; set; }
-        public static CompDebitEntity getFromCell(Row row, SharedStringTablePart t)
+        public DateTime calcDate { get; set; }
+        public static CompDebitEntity getFromCell(Row row, SharedStringTablePart t,bool is企业债,string fName)
         {
             string curCol = "";
             try
@@ -60,6 +61,17 @@ namespace ReportCreater.Entitys
                         entity.pubAmt = decimal.Parse(pubAmtStr, System.Globalization.NumberStyles.Float);
                         entity.amt = entity.pubAmt;
                     }
+
+                    if (is企业债)
+                    {
+                        curCol = "E";
+                    }
+                    else
+                    {
+                        curCol = "X";
+                    }
+                    string dateValue = LYJUtil.GetValue(LYJUtil.GetCell(curCol, row.RowIndex, cells), t);
+                    entity.calcDate = DateTime.FromOADate(double.Parse(dateValue));
                     return entity;
 
                 }
@@ -73,7 +85,7 @@ namespace ReportCreater.Entitys
                 string msg = ex.Message;
                 if(row !=null)
                 {
-                    msg = "新发行债券(不知道今年还是去年)第" + row.RowIndex + "行" + curCol +"列存在问题";
+                    msg = "新发行债券(" + fName +")第" + row.RowIndex + "行" + curCol +"列存在问题";
                 }
                 throw new MyException(msg + "\r\n" + ex.Message + ex.StackTrace);
             }

@@ -83,21 +83,48 @@ namespace ReportCreater.FileHandler
             count = 0;
             amount = 0;
 
-            DateTime tmpDate = DateTime.Parse(dateNow.ToString("yyyy-MM-dd"));
+            DateTime tmpDateStart = DateTime.Parse(dateNow.ToString("yyyy-MM-dd") + " 23:59:59");
+            DateTime tmpDateEnd = DateTime.Parse(dateNow.ToString("yyyy-MM-dd") + " 00:00:00");
 
+            
 
-            foreach(PublishAndCancelFileEntity pf in hisList)
+            //List<PublishAndCancelFileEntity> resultList = new List<PublishAndCancelFileEntity>();
+
+            foreach (PublishAndCancelFileEntity pf in hisList)
             {
-                if (pf.startDate.CompareTo(tmpDate)<=0
+                int days = (pf.endDate - pf.startDate).Days;
+
+
+                if (pf.startDate.CompareTo(tmpDateStart) <=0
                     &&
-                    pf.endDate.CompareTo(tmpDate)>=0
+                    pf.endDate.CompareTo(tmpDateEnd) >=0
                     &&
-                    pf.pubOrCancel.Trim().Equals("发行"))
+                    pf.pubOrCancel.Trim().Equals("发行")
+                    &&
+                    (days<=31))
                 {
                     count++;
                     amount = decimal.Add(amount, pf.amount);
+                    //resultList.Add(pf);
                 }
             }
+
+            //using(StreamWriter sw = new StreamWriter("d:\\qyclog.txt"))
+            //{
+            //    foreach(var en in resultList)
+            //    {
+            //        sw.WriteLine("{0},{1},{2},{3},{4},{5},{6}",
+            //            en.seqNo,
+            //            en.publishDate.ToString("yyyy/MM/dd"),
+            //            en.pubOrCancel,
+            //            en.fullName,
+            //            en.amount,
+            //            en.startDate.ToString("yyyy/MM/dd"),
+            //            en.endDate.ToString("yyyy/MM/dd"));
+            //    }
+            //    sw.Flush();
+            //    sw.Close();
+            //}
             //转为亿元
             amount = decimal.Divide(amount, 10000);
         }
