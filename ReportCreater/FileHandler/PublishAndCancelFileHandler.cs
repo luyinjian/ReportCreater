@@ -140,7 +140,7 @@ namespace ReportCreater.FileHandler
                 throw new MyException("当日sheet数据不对");
             }
             List<Cell> firstRow = rows.FirstOrDefault().Descendants<Cell>().ToList();
-            if (firstRow.Count < 20)
+            if (firstRow.Count < 10)
             {
                 throw new MyException("当日sheet列数不对");
             }
