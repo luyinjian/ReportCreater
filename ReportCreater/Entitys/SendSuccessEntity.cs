@@ -25,11 +25,11 @@ namespace ReportCreater.Entitys
                 {
                     SendSuccessEntity entity = new SendSuccessEntity();
                     List<Cell> cells = row.Descendants<Cell>().ToList();
-                    curCol = "B";
-                    Cell cellB = LYJUtil.GetCell("B", row.RowIndex, cells);
-                    if (cellB != null)
+                    curCol = "C";//B->C
+                    Cell cellC = LYJUtil.GetCell("C", row.RowIndex, cells);
+                    if (cellC != null)
                     {
-                        entity.bondName = LYJUtil.GetValue(cellB, t);
+                        entity.bondName = LYJUtil.GetValue(cellC, t);
                         if (string.IsNullOrWhiteSpace(entity.bondName))
                         {
                             return null;
@@ -39,13 +39,13 @@ namespace ReportCreater.Entitys
                     {
                         return null;
                     }
-                    curCol = "C";
-                    entity.bondManager = LYJUtil.GetValue(LYJUtil.GetCell("C", row.RowIndex, cells), t);
-                    curCol = "E";
-                    entity.bondType = LYJUtil.GetValue(LYJUtil.GetCell("E", row.RowIndex, cells), t);
-                    curCol = "G";
-                    entity.bondLevel = LYJUtil.GetValue(LYJUtil.GetCell("G", row.RowIndex, cells), t);
-                    curCol = "K";
+                    curCol = "D";//C->D
+                    entity.bondManager = LYJUtil.GetValue(LYJUtil.GetCell("D", row.RowIndex, cells), t);
+                    curCol = "F";//E->F
+                    entity.bondType = LYJUtil.GetValue(LYJUtil.GetCell("F", row.RowIndex, cells), t);
+                    curCol = "H";//G->H
+                    entity.bondLevel = LYJUtil.GetValue(LYJUtil.GetCell("H", row.RowIndex, cells), t);
+                    curCol = "L";//K->L
                     string pubAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("K", row.RowIndex, cells), t);
                     entity.pubAmout = decimal.Parse(pubAmtStr, System.Globalization.NumberStyles.Float);
 

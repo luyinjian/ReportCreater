@@ -45,17 +45,17 @@ namespace ReportCreater.FileHandler
                     throw new MyException("表格数据不对");
                 }
                 List<Cell> firstRow = rows[1].Descendants<Cell>().ToList();
-                string aTitle = LYJUtil.GetValue(LYJUtil.GetCell("B", rows[1].RowIndex, firstRow), workbook.SharedStringTablePart);
+                string aTitle = LYJUtil.GetValue(LYJUtil.GetCell("C", rows[1].RowIndex, firstRow), workbook.SharedStringTablePart);
                 if (aTitle.Trim() != "债券简称")
                 {
                     throw new MyException("表格列数不对");
                 }
-                string cTitle = LYJUtil.GetValue(LYJUtil.GetCell("E", rows[1].RowIndex, firstRow), workbook.SharedStringTablePart);
+                string cTitle = LYJUtil.GetValue(LYJUtil.GetCell("F", rows[1].RowIndex, firstRow), workbook.SharedStringTablePart);
                 if (cTitle.Trim() != "债券品种")
                 {
                     throw new MyException("表格列数不对");
                 }
-                string kTitle = LYJUtil.GetValue(LYJUtil.GetCell("K", rows[1].RowIndex, firstRow), workbook.SharedStringTablePart);
+                string kTitle = LYJUtil.GetValue(LYJUtil.GetCell("L", rows[1].RowIndex, firstRow), workbook.SharedStringTablePart);
                 if (kTitle.Trim() != "发行额（亿元）")
                 {
                     throw new MyException("表格列数不对");
