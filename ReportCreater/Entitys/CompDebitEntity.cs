@@ -25,12 +25,13 @@ namespace ReportCreater.Entitys
                 {
                     CompDebitEntity entity = new CompDebitEntity();
                     List<Cell> cells = row.Descendants<Cell>().ToList();
-                    if (cells[0] == null)
+                    curCol = "A";
+                    Cell cellA = LYJUtil.GetCell("A", row.RowIndex, cells);
+                    if(cellA == null)
                     {
                         return null;
                     }
-                    curCol = "A";
-                    entity.code = LYJUtil.GetValue(LYJUtil.GetCell("A", row.RowIndex, cells), t);
+                    entity.code = LYJUtil.GetValue(cellA, t);
                     if (string.IsNullOrWhiteSpace(entity.code))
                     {
                         return null;
@@ -48,9 +49,16 @@ namespace ReportCreater.Entitys
 
                     curCol = "F";
                     string planAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("F", row.RowIndex, cells), t);
+                    if (string.IsNullOrWhiteSpace(planAmtStr))
+                    {
+                        entity.planAmt = 0;
+                    }
+                    else
+                    {
+                        entity.planAmt = decimal.Parse(planAmtStr, System.Globalization.NumberStyles.Float);
+                    }
                     curCol = "H";
                     string pubAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("H", row.RowIndex, cells), t);
-                    entity.planAmt = decimal.Parse(planAmtStr, System.Globalization.NumberStyles.Float);
                     if (string.IsNullOrWhiteSpace(pubAmtStr))
                     {
                         entity.pubAmt = 0;

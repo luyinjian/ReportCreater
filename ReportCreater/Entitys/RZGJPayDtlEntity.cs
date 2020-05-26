@@ -28,7 +28,16 @@ namespace ReportCreater.Entitys
                     RZGJPayDtlEntity entity = new RZGJPayDtlEntity();
                     List<Cell> cells = row.Descendants<Cell>().ToList();
                     curCol = "A";
-                    entity.seqNo = LYJUtil.GetValue(LYJUtil.GetCell("A", row.RowIndex, cells), t);
+                    Cell cellA = LYJUtil.GetCell("A", row.RowIndex, cells);
+                    if(cellA == null)
+                    {
+                        return null;
+                    }
+                    entity.seqNo = LYJUtil.GetValue(cellA, t);
+                    if (string.IsNullOrWhiteSpace(entity.seqNo))
+                    {
+                        return null;
+                    }
                     curCol = "B";
                     entity.pubCompName = LYJUtil.GetValue(LYJUtil.GetCell("B", row.RowIndex, cells), t);
                     curCol = "C";
@@ -92,7 +101,16 @@ namespace ReportCreater.Entitys
                     RZGJPayDtlEntity entity = new RZGJPayDtlEntity();
                     List<Cell> cells = row.Descendants<Cell>().ToList();
                     curCol = "A";
-                    entity.seqNo = LYJUtil.GetValue(LYJUtil.GetCell("A", row.RowIndex, cells), t);
+                    Cell cellA = LYJUtil.GetCell("A", row.RowIndex, cells);
+                    if(cellA == null)
+                    {
+                        return null;
+                    }
+                    entity.seqNo = LYJUtil.GetValue(cellA, t);
+                    if (string.IsNullOrWhiteSpace(entity.seqNo))
+                    {
+                        return null;
+                    }
                     curCol = "C";
                     entity.pubCompName = LYJUtil.GetValue(LYJUtil.GetCell("C", row.RowIndex, cells), t);
                     curCol = "B";

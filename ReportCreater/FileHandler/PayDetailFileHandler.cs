@@ -61,7 +61,12 @@ namespace ReportCreater.FileHandler
                 dataList = new List<RZGJPayDtlEntity>();
                 for(int i=1;i<rows.Count;i++)
                 {
-                    dataList.Add(RZGJPayDtlEntity.getFromCell(rows[i], workbook.SharedStringTablePart));
+                    RZGJPayDtlEntity data = RZGJPayDtlEntity.getFromCell(rows[i], workbook.SharedStringTablePart);
+                    if(data != null)
+                    {
+                        dataList.Add(data);
+                    }
+                    
                 }
             }
         }

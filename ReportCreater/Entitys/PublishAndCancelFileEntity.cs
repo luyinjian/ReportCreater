@@ -40,6 +40,10 @@ namespace ReportCreater.Entitys
                         return null;
                     }
                     entity.seqNo = LYJUtil.GetValue(c, t);
+                    if (string.IsNullOrWhiteSpace(entity.seqNo))
+                    {
+                        return null;
+                    }
 
                     curCol = "B";
                     dateValue = LYJUtil.GetValue(LYJUtil.GetCell(curCol, row.RowIndex, cells), t);

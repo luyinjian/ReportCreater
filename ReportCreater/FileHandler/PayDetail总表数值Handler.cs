@@ -57,7 +57,12 @@ namespace ReportCreater.FileHandler
                 dataList = new List<RZGJPayDtlEntity>();
                 for (int i = 1; i < rows.Count; i++)
                 {
-                    dataList.Add(RZGJPayDtlEntity.getFrom总表数值Cell(rows[i], workbook.SharedStringTablePart));
+                    RZGJPayDtlEntity data = RZGJPayDtlEntity.getFrom总表数值Cell(rows[i], workbook.SharedStringTablePart);
+                    if(data != null)
+                    {
+                        dataList.Add(data);
+                    }
+                    
                 }
             }
         }
