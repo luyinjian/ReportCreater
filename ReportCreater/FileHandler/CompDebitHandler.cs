@@ -82,12 +82,12 @@ namespace ReportCreater.FileHandler
                 {
                     throw new MyException("表格列不对");
                 }
-                string fTitle = LYJUtil.GetValue(firstRow[5], workbook.SharedStringTablePart);
+                string fTitle = LYJUtil.GetValue(firstRow[4], workbook.SharedStringTablePart);
                 if (fTitle.Trim() != "计划发行规模(亿)")
                 {
                     throw new MyException("表格列不对");
                 }
-                string hTitle = LYJUtil.GetValue(firstRow[7], workbook.SharedStringTablePart);
+                string hTitle = LYJUtil.GetValue(firstRow[6], workbook.SharedStringTablePart);
                 if (hTitle.Trim() != "发行规模(亿)")
                 {
                     throw new MyException("表格列不对");
@@ -99,6 +99,10 @@ namespace ReportCreater.FileHandler
                     if (data != null)
                     {
                         thisYearData.Add(data);
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
             }
@@ -121,12 +125,12 @@ namespace ReportCreater.FileHandler
                 {
                     throw new MyException("表格列不对");
                 }
-                string fTitle = LYJUtil.GetValue(firstRow[5], workbook.SharedStringTablePart);
+                string fTitle = LYJUtil.GetValue(firstRow[4], workbook.SharedStringTablePart);
                 if (fTitle.Trim() != "计划发行规模(亿)")
                 {
                     throw new MyException("表格列不对");
                 }
-                string hTitle = LYJUtil.GetValue(firstRow[7], workbook.SharedStringTablePart);
+                string hTitle = LYJUtil.GetValue(firstRow[6], workbook.SharedStringTablePart);
                 if (hTitle.Trim() != "发行规模(亿)")
                 {
                     throw new MyException("表格列不对");
@@ -138,6 +142,10 @@ namespace ReportCreater.FileHandler
                     if (data != null)
                     {
                         lastYearData.Add(data);
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
             }
@@ -160,12 +168,12 @@ namespace ReportCreater.FileHandler
                 {
                     throw new MyException("表格列不对");
                 }
-                string fTitle = LYJUtil.GetValue(firstRow[5], workbook.SharedStringTablePart);
+                string fTitle = LYJUtil.GetValue(firstRow[4], workbook.SharedStringTablePart);
                 if (fTitle.Trim() != "计划发行规模(亿)")
                 {
                     throw new MyException("表格列不对");
                 }
-                string hTitle = LYJUtil.GetValue(firstRow[7], workbook.SharedStringTablePart);
+                string hTitle = LYJUtil.GetValue(firstRow[6], workbook.SharedStringTablePart);
                 if (hTitle.Trim() != "发行规模(亿)")
                 {
                     throw new MyException("表格列不对");
@@ -177,6 +185,10 @@ namespace ReportCreater.FileHandler
                     if (data != null)
                     {
                         thisYearDataQ.Add(data);
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
             }
@@ -199,12 +211,12 @@ namespace ReportCreater.FileHandler
                 {
                     throw new MyException("表格列不对");
                 }
-                string fTitle = LYJUtil.GetValue(firstRow[5], workbook.SharedStringTablePart);
+                string fTitle = LYJUtil.GetValue(firstRow[4], workbook.SharedStringTablePart);
                 if (fTitle.Trim() != "计划发行规模(亿)")
                 {
                     throw new MyException("表格列不对");
                 }
-                string hTitle = LYJUtil.GetValue(firstRow[7], workbook.SharedStringTablePart);
+                string hTitle = LYJUtil.GetValue(firstRow[6], workbook.SharedStringTablePart);
                 if (hTitle.Trim() != "发行规模(亿)")
                 {
                     throw new MyException("表格列不对");
@@ -216,6 +228,10 @@ namespace ReportCreater.FileHandler
                     if (data != null)
                     {
                         lastYearDataQ.Add(data);
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
             }

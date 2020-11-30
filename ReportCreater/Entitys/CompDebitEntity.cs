@@ -47,8 +47,8 @@ namespace ReportCreater.Entitys
                         return null;
                     }
 
-                    curCol = "F";
-                    string planAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("F", row.RowIndex, cells), t);
+                    curCol = "E";
+                    string planAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("E", row.RowIndex, cells), t);
                     if (string.IsNullOrWhiteSpace(planAmtStr))
                     {
                         entity.planAmt = 0;
@@ -57,8 +57,8 @@ namespace ReportCreater.Entitys
                     {
                         entity.planAmt = decimal.Parse(planAmtStr, System.Globalization.NumberStyles.Float);
                     }
-                    curCol = "H";
-                    string pubAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("H", row.RowIndex, cells), t);
+                    curCol = "G";
+                    string pubAmtStr = LYJUtil.GetValue(LYJUtil.GetCell("G", row.RowIndex, cells), t);
                     if (string.IsNullOrWhiteSpace(pubAmtStr))
                     {
                         entity.pubAmt = 0;
@@ -76,7 +76,7 @@ namespace ReportCreater.Entitys
                     }
                     else
                     {
-                        curCol = "X";
+                        curCol = "W";
                     }
                     string dateValue = LYJUtil.GetValue(LYJUtil.GetCell(curCol, row.RowIndex, cells), t);
                     entity.calcDate = DateTime.FromOADate(double.Parse(dateValue));

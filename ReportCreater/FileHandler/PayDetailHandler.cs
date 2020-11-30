@@ -175,5 +175,22 @@ namespace ReportCreater.FileHandler
 
             amount = decimal.Round(amount, 2, MidpointRounding.AwayFromZero);
         }
+
+        public string getTodayBal()
+        {
+            decimal amount = 0;
+            string dateNowStr = dateNow.ToString("yyyy-MM-dd");
+            var tmplist = dataList.Where(n => n.duifuDate.CompareTo(dateNowStr) > 0).ToList();
+            foreach(var d in tmplist)
+            {
+                amount = decimal.Add(amount, d.pubAmount);
+            }
+
+            amount = decimal.Divide(amount, 10000);
+
+            amount = decimal.Round(amount, 2, MidpointRounding.AwayFromZero);
+
+            return amount.ToString();
+        }
     }
 }

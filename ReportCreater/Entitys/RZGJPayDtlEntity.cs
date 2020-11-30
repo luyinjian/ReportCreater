@@ -18,6 +18,7 @@ namespace ReportCreater.Entitys
         public string hangye_1st { get; set; }
         public string ownnerType { get; set; }
 
+        public string duifuDate { get; set; }
         public static RZGJPayDtlEntity getFromCell(Row row,SharedStringTablePart t)
         {
             string curCol = "";
@@ -111,10 +112,10 @@ namespace ReportCreater.Entitys
                     {
                         return null;
                     }
-                    curCol = "C";
-                    entity.pubCompName = LYJUtil.GetValue(LYJUtil.GetCell("C", row.RowIndex, cells), t);
                     curCol = "B";
-                    entity.bondName = LYJUtil.GetValue(LYJUtil.GetCell("B", row.RowIndex, cells), t);
+                    entity.pubCompName = LYJUtil.GetValue(LYJUtil.GetCell("B", row.RowIndex, cells), t);
+                    curCol = "C";
+                    entity.bondName = LYJUtil.GetValue(LYJUtil.GetCell("C", row.RowIndex, cells), t);
                     curCol = "K";
                     string amtValue = LYJUtil.GetValue(LYJUtil.GetCell("K", row.RowIndex, cells), t);
                     // if(amtValue.Contains("E"))
@@ -150,6 +151,10 @@ namespace ReportCreater.Entitys
                     {
                         entity.ownnerType = LYJUtil.GetValue(tmpQ, t);
                     }
+
+                    curCol = "U";
+                    string duifuDateStr = LYJUtil.GetValue(LYJUtil.GetCell(curCol, row.RowIndex, cells),t);
+                    entity.duifuDate = DateTime.FromOADate(double.Parse(duifuDateStr)).ToString("yyyy-MM-dd");
 
                     return entity;
                 }

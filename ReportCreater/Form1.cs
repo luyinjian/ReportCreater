@@ -112,6 +112,7 @@ namespace ReportCreater
                 payDetailFile.getThisYearDayAvg(out avgcount, out avgamt);
 
                 result += string.Format("截至当日，{0}月债务融资工具合计缴款{1}亿元，发行金额同比{2}%。" +
+                    "初步估计当日余额{8}万亿元。" +
                     "从年度情况看，债务融资工具合计发行{3}亿元，较去年同期({4}亿元){5}%；" +
                     "2020年日均缴款{6}只，日均缴款规模{7}亿元。\r\n",
                     selecteddate.Month,
@@ -121,7 +122,8 @@ namespace ReportCreater
                     LYJUtil.changewan(decimal.Round(lastyear, 2, MidpointRounding.AwayFromZero)),
                     LYJUtil.getupdown(decimal.Round(decimal.Divide(year, lastyear == 0 ? year : lastyear) * 100 - 100, 0, MidpointRounding.AwayFromZero)),
                     avgcount,
-                    decimal.Round(avgamt, 0, MidpointRounding.AwayFromZero)
+                    decimal.Round(avgamt, 0, MidpointRounding.AwayFromZero),
+                    payDetailFile.getTodayBal()
                     );
                 //公司债
                 compDebitHandler.loadData();
@@ -130,7 +132,7 @@ namespace ReportCreater
                 decimal lastYearCompDebit = compDebitHandler.getLastYearSum();
                 int todayCompDebitCount = compDebitHandler.getTodayCount();
                 decimal todayCompDebitSum = compDebitHandler.getTodaySum();
-                result += string.Format("{0}公司债(含ABS)起息{1}只，起息规模{2}亿元。" +
+                result += string.Format("{0}公司债(含ABS、可转债、可交换债)起息{1}只，起息规模{2}亿元。" +
                     "本年累计起息{3}亿元，较去年同期({4}亿元){5}%。\r\n",
                     selecteddate.DayOfWeek,
                     todayCompDebitCount,
@@ -168,11 +170,12 @@ namespace ReportCreater
                     todayPubCount, decimal.Round(todayPubAmt,0,MidpointRounding.AwayFromZero),
                     hisDoingCount, decimal.Round(hisDoingAmt,0, MidpointRounding.AwayFromZero),
                     selecteddate.DayOfWeek);
-
-                result += string.Format("\r\n缴款规模方面，{2}债务融资工具缴款{0}只，金额{1}亿元。",
+                //avgamt
+                result += string.Format("\r\n缴款规模方面，{2}债务融资工具缴款{0}只，金额{1}亿元,，较本年日均缴款规模{3}亿元。",
                     dailySendInfoHandler.dataList.Count,
                     decimal.Round(dailyTotalSum,0, MidpointRounding.AwayFromZero),
-                    selecteddate.DayOfWeek);
+                    selecteddate.DayOfWeek,
+                    decimal.Round(dailyTotalSum - avgamt,0,MidpointRounding.AwayFromZero));
 
                 result += "\r\n品种分布方面，";
                 var pingzhongList = dailySendInfoHandler.getPingZhongFenBu();
@@ -198,8 +201,9 @@ namespace ReportCreater
                 int minYingCount = 0;
                 decimal minYingAmt = 0;
                 payDetailFile.getMingyingToday(out minYingCount, out minYingAmt);
-                result += string.Format("民营企业发行{0}只，金额共计{1}亿元。",
-                    minYingCount, minYingAmt);
+                result += string.Format("民营企业发行{0}只，金额共计{1}亿元，占当日缴款规模的比例为{2}%。",
+                    minYingCount, minYingAmt,
+                    decimal.Round(decimal.Divide(minYingAmt, dailyTotalSum)*100,0,MidpointRounding.AwayFromZero));
 
                 textBox1.Text = result;
             }

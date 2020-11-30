@@ -46,14 +46,14 @@ namespace ReportCreater.FileHandler
                 WorkbookPart workbook = doc.WorkbookPart;
                 WorkbookPart wbPart = doc.WorkbookPart;
                 List<Sheet> sheets = wbPart.Workbook.Descendants<Sheet>().ToList();
-                if (sheets.Count != 3)
+                if (sheets.Count != 2)
                 {
                     throw new MyException("当日披露文件sheet数不对");
                 }
                 //当日读取
-                todayList = readEntity(doc, workbook, sheets, 1);
+                todayList = readEntity(doc, workbook, sheets, 0);
                 //累计数据
-                hisList = readEntity(doc, workbook, sheets, 2);
+                hisList = readEntity(doc, workbook, sheets, 1);
 
                 if (ReportProcess != null)
                 {
@@ -149,16 +149,16 @@ namespace ReportCreater.FileHandler
             {
                 throw new MyException("表格列数不对");
             }
-            string cTitle = LYJUtil.GetValue(firstRow[2], workbook.SharedStringTablePart);
-            if (!(cTitle.Trim().Contains("发行") && cTitle.Trim().Contains("取消发行")))
-            {
-                throw new MyException("表格列数不对");
-            }
-            string jTitle = LYJUtil.GetValue(firstRow[9], workbook.SharedStringTablePart);
-            if (jTitle.Trim() != "计划发行金额（万元）")
-            {
-                throw new MyException("表格列数不对");
-            }
+            //string cTitle = LYJUtil.GetValue(firstRow[2], workbook.SharedStringTablePart);
+            //if (!(cTitle.Trim().Contains("发行") && cTitle.Trim().Contains("取消发行")))
+            //{
+            //    throw new MyException("表格列数不对");
+            //}
+            //string jTitle = LYJUtil.GetValue(firstRow[9], workbook.SharedStringTablePart);
+            //if (jTitle.Trim() != "计划发行金额（万元）")
+            //{
+            //    throw new MyException("表格列数不对");
+            //}
             for (int i = 1; i < rows.Count; i++)
             {
                 var rowdat = PublishAndCancelFileEntity.getFromRow(rows[i], workbook.SharedStringTablePart);
