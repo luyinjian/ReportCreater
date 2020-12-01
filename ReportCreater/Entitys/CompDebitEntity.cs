@@ -72,7 +72,7 @@ namespace ReportCreater.Entitys
 
                     if (is企业债)
                     {
-                        curCol = "E";
+                        curCol = "D";
                     }
                     else
                     {
